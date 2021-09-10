@@ -1,0 +1,18 @@
+version: "3.7"
+
+services:
+
+  webapp:
+    container_name: library_web
+    tty: true
+    build:
+      context: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./libraryproject:/libraryproject
+    command: |
+      sh -c
+      "python manage.py makemigrations &&
+      python manage.py migrate &&
+      python manage.py runserver 0:8000"
