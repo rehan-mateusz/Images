@@ -49,7 +49,7 @@ INSTALLED_APPS += [
 
 # My apps
 INSTALLED_APPS += [
-    
+    'images',
 ]
 
 
