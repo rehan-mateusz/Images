@@ -7,7 +7,7 @@ from django.core.exceptions import ValidationError
 class Plan(models.Model):
     name = models.CharField(max_length=50)
     thumbnails_sizes = models.JSONField(
-        help_text='format: {"sizes": "[[height1, width1], [height2, width2], ...]"}')
+        help_text='format: {"sizes": "[[width1, height1], [width2, height2], ...]"}')
     can_share = models.BooleanField(default=False)
     has_original = models.BooleanField(default=False)
 
@@ -21,13 +21,13 @@ class Plan(models.Model):
             sizes = json.loads(self.thumbnails_sizes['sizes'])
         except:
             raise ValidationError(
-                'Sizes must be put in format [[height1, width1],'
-                + ' [height2, width2], ...] heights and widths must be integers')
+                'Sizes must be put in format [[width1, height1],'
+                + ' [width2, height2], ...] widths and heights must be integers')
         for size in sizes:
             if not isinstance(size, list) or len(size) != 2:
                 raise ValidationError(
-                    'Sizes must be put in format [[height1, width1], '
-                    + '[height2, width2], ...]')
+                    'Sizes must be put in format [[width1, height1], '
+                    + '[width2, height2], ...]')
             if not (isinstance(size[0], int) and isinstance(size[1], int)):
                 raise ValidationError('All sizes must be integers')
             if not (size[0] >= 0 and size[1] >= 0):
