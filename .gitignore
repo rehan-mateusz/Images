@@ -5,3 +5,4 @@ __pycache__
 */staticfiles
 README.md
 **/migrations/*
+**/media/*

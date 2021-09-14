@@ -5,5 +5,5 @@ from . import views
 app_name = 'images'
 
 urlpatterns = [
-    path('images/', views.ImageListCreateView.as_view()),
+    path('', views.ImageListCreateView.as_view()),
 ]

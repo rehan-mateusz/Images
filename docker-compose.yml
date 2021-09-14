@@ -3,14 +3,14 @@ version: "3.7"
 services:
 
   webapp:
-    container_name: library_web
+    container_name: imagesproject_web
     tty: true
     build:
       context: .
     ports:
       - "8000:8000"
     volumes:
-      - ./libraryproject:/libraryproject
+      - ./imagesproject:/imagesproject
     command: |
       sh -c
       "python manage.py makemigrations &&
