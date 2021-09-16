@@ -54,6 +54,20 @@ class ImageRetrieveSerializer(serializers.ModelSerializer):
             instance.pop('img')
         return instance
 
+
+class TempURLSerializer(serializers.ModelSerializer):
+    image_data = serializers.SerializerMethodField()
+
+    class Meta:
+        model = models.TempURL
+        fields = ('image_data',)
+
+    def get_image_data(self, temp_url):
+        if temp_url.is_active():
+            return json.loads(temp_url.data)
+        return 'Link has expired'
+
+
 def create_thumbnails(base_image, sizes):
     image = PilImage.open(base_image.img.path)
     for size in sizes:
