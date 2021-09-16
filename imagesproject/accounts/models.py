@@ -35,7 +35,7 @@ class Plan(models.Model):
 
 
 class MyAccountManager(BaseUserManager):
-    def create_user(self, email, username, password=None):
+    def create(self, email, username, password=None):
         if not email:
             raise ValueError("Email adress required")
         if not username:
