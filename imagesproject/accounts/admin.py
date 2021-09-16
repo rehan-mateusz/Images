@@ -30,7 +30,7 @@ class AccountChangeForm(forms.ModelForm):
 class AccountUserAdmin(UserAdmin):
     form = AccountChangeForm
     add_form = AccountCreationForm
-    list_display = ('email', 'username', 'password', 'plan')
+    list_display = ('email', 'username', 'plan')
 
     fieldsets = (
         (None, {'fields': ('email', 'password')}),
