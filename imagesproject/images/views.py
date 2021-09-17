@@ -6,6 +6,7 @@ from datetime import timedelta
 from datetime import timezone
 
 from django.core.exceptions import ValidationError
+from django.urls import reverse
 
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
@@ -56,7 +57,8 @@ class TempURLCreateView(generics.RetrieveAPIView):
             url.save()
         except ValidationError:
             return Response('Link can be valid between 30 and 30000 seconds')
-        return Response(url.id)
+        return Response(self.request.build_absolute_uri(
+                    reverse('images:temp_url', kwargs={'pk': url.id})))
 
 
 class TempURLView(generics.RetrieveAPIView):
@@ -65,7 +67,7 @@ class TempURLView(generics.RetrieveAPIView):
 
     def retrieve(self, request, *args, **kwargs):
         instance = models.TempURL.objects.filter(id=self.kwargs['pk'])
-        if instance.count() == 0:
+        if not instance.exists():
             return Response('No Image Avaliable!')
-        serializer = self.get_serializer(instance)
+        serializer = self.get_serializer(instance.first())
         return Response(serializer.data['image_data'])
