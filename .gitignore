@@ -3,6 +3,5 @@ __pycache__
 .env
 *.sqlite3
 */staticfiles
-README.md
 **/migrations/*
 **/media/*
