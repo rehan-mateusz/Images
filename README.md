@@ -1,5 +1,13 @@
 # Images
-
+Deployed at: https://mrehan-images.herokuapp.com/
+Note: Debug is on to simplyfy browsing. 
+Admin credentials: login: admin, password: adminadmin
+Admin panel: https://mrehan-images.herokuapp.com/admin/
+Endpoints:
+- https://mrehan-images.herokuapp.com/images/ - GET - list of users images, POST - uploading image
+- https://mrehan-images.herokuapp.com/images/<image_id>/ - GET - detail view of image
+- https://mrehan-images.herokuapp.com/images/create_temp_url/<image_id>/<seconds>/ - GET - returns url to details of image that will be avaliable for number of seconds (30-30000)
+- https://mrehan-images.herokuapp.com/images/temp/<temp_url_id>/ - GET - details of image that will be avaliable for number of seconds specified by url creator
 
 Features:
 - Creating users with django admin
