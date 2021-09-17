@@ -16,6 +16,8 @@ class Plan(models.Model):
 
     def clean(self):
         super().clean()
+        if not self.thumbnails_sizes:
+            raise ValidationError('format: {"sizes": "[[width1, height1], [width2, height2]...]"}')
         if len(self.thumbnails_sizes.keys()) != 1:
             raise ValidationError('JSON must have exactly one key - "sizes"')
         elif 'sizes' not in self.thumbnails_sizes.keys():
@@ -38,7 +40,7 @@ class Plan(models.Model):
 
 
 class MyAccountManager(BaseUserManager):
-    def create(self, email, username, password=None):
+    def create_user(self, email, username, password=None):
         if not email:
             raise ValueError("Email adress required")
         if not username:
@@ -74,7 +76,7 @@ class Account(AbstractUser):
         Plan,
         blank=True,
         null=True,
-        on_delete=models.DO_NOTHING)
+        on_delete=models.SET_NULL)
 
     is_admin = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=True)
