@@ -17,7 +17,7 @@ Features:
 git clone https://github.com/rehan-mateusz/Images/
 ```
 
-- Create .env file in Library/imagesproject/imagesproject/ it should contain:
+- Create .env file in Images/imagesproject/imagesproject/ it should contain:
 ```
 SECRET_KEY=your_SECRET_KEY
 DEBUG=on
@@ -63,7 +63,9 @@ next just cd to /Images and use docker-compose by typing in console
  docker-compose up
  ```
 - With python:
+
 After installing app and requirements.txt simply go into /Images/imagesproject and type into console:
-  ```
+ 
+```
 pytest
-  ```
+```
