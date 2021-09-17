@@ -4,7 +4,7 @@ from datetime import timezone
 from django.db import models
 
 from imagesproject import settings
-
+from .validators import valid_until_validator
 User = settings.AUTH_USER_MODEL
 
 
@@ -20,9 +20,9 @@ class Thumbnail(models.Model):
     thumbnail = models.ImageField()
 
 class TempURL(models.Model):
-    id = models.CharField(primary_key=True, editable=False, max_length=32)
+    id = models.CharField(primary_key=True, editable=False, max_length=44)
     data = models.JSONField()
-    valid_until = models.DateTimeField()
+    valid_until = models.DateTimeField(validators=[valid_until_validator,])
 
     def is_active(self):
         return datetime.now(timezone.utc) <= self.valid_until
