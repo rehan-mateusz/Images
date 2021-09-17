@@ -12,7 +12,7 @@ services:
     volumes:
       - ./imagesproject:/imagesproject
     command: |
-      sh -c
-      "python manage.py makemigrations &&
-      python manage.py migrate &&
-      python manage.py runserver 0:8000"
+      sh -c "pytest"
+      # "python manage.py makemigrations &&
+      # python manage.py migrate &&
+      # python manage.py runserver 0:8000"
