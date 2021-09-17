@@ -11,6 +11,9 @@ class Plan(models.Model):
     can_share = models.BooleanField(default=False)
     has_original = models.BooleanField(default=False)
 
+    def __str__(self):
+        return self.name
+
     def clean(self):
         super().clean()
         if len(self.thumbnails_sizes.keys()) != 1:
