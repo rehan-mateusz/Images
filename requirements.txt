@@ -1,5 +1,7 @@
 Django==3.2.3
 djangorestframework
+Pillow
+django-cleanup
 requests
 pytest
 pytest-django
