@@ -11,6 +11,7 @@ from django.urls import reverse
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
+from rest_framework import status
 
 from . import permissions
 from . import serializers
@@ -19,11 +20,20 @@ from . import models
 
 class ImageListCreateView(generics.ListCreateAPIView):
     serializer_class = serializers.ImageSerializer
-    permission_classes = [(IsAuthenticated and permissions.HasPlan), ]
+    permission_classes = [IsAuthenticated, ]
     queryset = models.Image.objects.all()
+
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        data = {'id': serializer.data['id']}
+        headers = self.get_success_headers(data)
+        return Response(data, status=status.HTTP_201_CREATED, headers=headers)
 
     def list(self, request):
         queryset = self.get_queryset()

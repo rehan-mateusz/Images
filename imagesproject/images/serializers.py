@@ -27,8 +27,10 @@ class ImageSerializer(serializers.ModelSerializer):
         new_image = models.Image.objects.create(
             img = validated_data['img'],
             owner = validated_data['user'])
-        sizes = json.loads(validated_data['user'].plan.thumbnails_sizes['sizes'])
-        images_utils.create_thumbnails(new_image, sizes)
+        if validated_data['user'].plan is not None:
+            sizes = json.loads(
+                validated_data['user'].plan.thumbnails_sizes['sizes'])
+            images_utils.create_thumbnails(new_image, sizes)
         return new_image
 
     def to_representation(self, instance):
@@ -46,7 +48,10 @@ class ImageRetrieveSerializer(serializers.ModelSerializer):
 
     def to_representation(self, instance):
         instance = super().to_representation(instance)
-        if not self.context['request'].user.plan.has_original:
+        if self.context['request'].user.plan is None:
+            instance.pop('img')
+            instance.pop('thumbnails')
+        elif not self.context['request'].user.plan.has_original:
             instance.pop('img')
         return instance
 

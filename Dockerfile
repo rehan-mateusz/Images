@@ -20,3 +20,5 @@ RUN mkdir -p /vol/web/static
 RUN adduser user
 RUN chown -R user:user /vol
 RUN chmod -R 755 /vol
+
+CMD gunicorn imagesproject.wsgi:application --bind 0.0.0.0:$PORT
